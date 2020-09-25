@@ -55,6 +55,58 @@ public class Fast {
     public void findEqualSlopes(Point invoking_point){
         double end_slope, start_slope;
         int start, end;
+        start=1; end=2;
+        boolean is_dupe;
+        is_dupe = invoking_point.compareTo(this.points[start])>0; // Duplicate if point < invoking point
+        // Setting initial slope
+        start_slope = this.points[start].slopeTo(invoking_point);// The current slope we are comparing to
+        while(end<this.points.length){
+            // If the end slope is the same as the start slope we have collinear points
+
+            end_slope = this.points[end].slopeTo(invoking_point); // The current slope we are iterating over
+
+            if (end_slope!=start_slope){
+                if(end-start>=3 &&!is_dupe){
+                    printPoints(start, end, invoking_point);
+                }
+                start = end;
+                start_slope = end_slope;
+                is_dupe = this.points[start].compareTo(invoking_point)<0; // Duplicate if point < invoking point
+            }
+            if (this.points[end].compareTo(invoking_point)<0){
+                is_dupe = true; // Duplicate if point < invoking point
+            }
+            end++;
+
+
+            // If the last end++ also is in the collinear set
+            if(end==this.points.length-1){
+                if(this.points[end].slopeTo(invoking_point)==start_slope){
+                    if(end-start>=3 &&!is_dupe){
+                        printPoints(start, end, invoking_point);
+                    }
+                }
+            }
+        }
+    }
+
+    public static void main(String [] args) throws InvalidAttributeValueException {
+        In in = new In();
+        int n = in.readInt();
+        Fast fast = new Fast(n);
+        for (int i = 0; i < n; i++) {
+            int x = in.readInt(), y = in.readInt();
+            fast.points[i] = new Point(x, y);
+            fast.iter_points[i]= new Point(x, y);
+        }
+        fast.getCollinear();
+    }
+}
+
+/*
+    public void findEqualSlopes(Point invoking_point){
+        double end_slope, start_slope;
+        int start, end;
         start=0; end=1;
         boolean is_dupe;
         is_dupe = this.points[start].compareTo(invoking_point)>0; // Duplicate if point < invoking point
@@ -77,46 +129,4 @@ public class Fast {
             }
         }
     }
-
-    public static void main(String [] args) throws InvalidAttributeValueException {
-        In in = new In();
-        int n = in.readInt();
-        Fast fast = new Fast(n);
-        for (int i = 0; i < n; i++) {
-            int x = in.readInt(), y = in.readInt();
-            fast.points[i] = new Point(x, y);
-            fast.iter_points[i]= new Point(x, y);
-        }
-        fast.getCollinear();
-    }
-}
-
-/*
-while(end<this.points.length){
-            // If the end slope is the same as the start slope we have collinear points
-
-            end_slope = this.points[end].slopeTo(invoking_point); // The current slope we are iterating over
-
-            if (end_slope!=start_slope){
-                if(end-start>=3){
-                    printPoints(start, end, invoking_point);
-                }
-                start = end;
-                is_dupe = this.points[start].compareTo(invoking_point)<0; // Duplicate if point < invoking point
-            }
-            if (this.points[end].compareTo(invoking_point)<0){
-                is_dupe = true; // Duplicate if point < invoking point
-            }
-            end++;
-
-
-            // If the last end++ also is in the collinear set
-            if(end==this.points.length-1){
-                if(this.points[end].slopeTo(invoking_point)==start_slope){
-                    if(end-start>=3){
-                        printPoints(start, end, invoking_point);
-                    }
-                }
-            }
-        }
  */
