@@ -90,14 +90,15 @@ public class Fast {
         In in = new In();
         int n = in.readInt();
         Fast fast = new Fast(n);
-        var stopwatch = new Stopwatch();
+        //var stopwatch = new Stopwatch();
         for (int i = 0; i < n; i++) {
             int x = in.readInt(), y = in.readInt();
             fast.points[i] = new Point(x, y);
             fast.iter_points[i]= new Point(x, y);
         }
         fast.getCollinear();
+        /*
         var timespent = stopwatch.elapsedTime();
-        StdOut.println("Time: " + timespent);
+        StdOut.println("Time: " + timespent);*/
     }
 }
