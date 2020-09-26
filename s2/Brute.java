@@ -1,9 +1,6 @@
 package s2;
 
-import edu.princeton.cs.algs4.In;
-import edu.princeton.cs.algs4.Out;
-import edu.princeton.cs.algs4.QuickX;
-
+import edu.princeton.cs.algs4.*;
 import javax.management.InvalidAttributeValueException;
 
 public class Brute {
@@ -28,13 +25,13 @@ public class Brute {
         int len = this.points.length;
         sortPoints();
         double s1,s2,s3;
-        for(i=0;i<len; i++){
-            for(j=i+1;j<len; j++){
-                s1=this.points[i].slopeTo(this.points[j]);
-                for(k=j+1;k<len; k++){
-                    s2=this.points[j].slopeTo(this.points[k]);
-                    for(l=k+1;l<len; l++){
-                        s3=this.points[k].slopeTo(this.points[l]);
+        for(i=0;i<len; i++){ // Point 1: this.points[i]
+            for(j=i+1;j<len; j++){ // Point 2: this.points[j]
+                s1=this.points[i].slopeTo(this.points[j]); // Slope 1: point 1 -> point 2
+                for(k=j+1;k<len; k++){ // Point 3: this.points[k]
+                    s2=this.points[j].slopeTo(this.points[k]); // Slope 2: point 2 -> point 3
+                    for(l=k+1;l<len; l++){ // Point 4: this.points[l]
+                        s3=this.points[k].slopeTo(this.points[l]); // Slope 3: point 3 -> point 4
                         if((s1==s2 && s1==s3)){
                             printPoints(new Point[]{this.points[i], this.points[j], this.points[k], this.points[l]});
                         }
@@ -44,10 +41,13 @@ public class Brute {
         In in = new In();
         int n = in.readInt();
         Brute brute = new Brute(n);
+        //var stopwatch = new Stopwatch();
         for (int i = 0; i < n; i++) {
             int x = in.readInt(), y = in.readInt();
             brute.points[i] = new Point(x, y);
         }
         brute.bruteForce();
+        /*var timespent = stopwatch.elapsedTime();
+        StdOut.println("Time: " + timespent);*/
     }
 }

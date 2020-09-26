@@ -17,7 +17,25 @@ Hours to complete assignment (optional): 1
  *           Describe how you implemented compareTo() and the
  *           slopeTo() methods in the Point data type.
  **********************************************************************/
+    1. Brute force implementation:
+    Made 4 for loops. Within each of the for loops a point is available.
+    Once we have two points we start making slopes between the points.
+    If all 3 slopes are the same we have a line between the 4 points.
 
+    2. compareTo()
+    The behaviour of the compareTo method can be read directly from the project description.
+    If the "this" has smaller y than "that"                   -> this is smaller   -> return -1
+    If the "this" has equal y to "that" but a smaller x       -> this is smaller   -> return -1
+    If the "this" has equal y to "that" and the x's are equal -> this is larger    -> return  1
+    If the "this" has equal y to "that" and the x is larger   -> this is larger    -> return  1
+
+    if ((this.y < that.y) | ((this.y == that.y) & (this.x < that.x))){
+                   return -1;
+               } else
+                   return 1;
+           }
+
+    3. slopeTo()
 
 
 
