@@ -53,20 +53,31 @@ public class Fast {
     }
 
     public void findEqualSlopes(Point invoking_point) {
-        int counter=0; // Counts how many slopes in a row are the same
+        int counter=1; // Counts how many slopes in a row are the same
         double slope1, slope2;
         slope1 = this.points[1].slopeTo(invoking_point);
         for(int i=2; i<this.points.length; i++){
             slope2 = this.points[i].slopeTo(invoking_point);
+            // If the slopes are equal they are form a line together
             if(slope1==slope2){
                 counter++;
+
+                // EDGE CASE: If i=this.points.length-1 and the slopes are equal, the line never gets printed
+                // We therefore check specifically for that case
+                if(i==this.points.length-1){
+                    if(counter>=3){
+                        printPoints(i-counter, i, invoking_point);
+                    }
+                }
             }
+            // If the slopes are not equal, we no longer have a point in the collinear set
             else {
+                // If the count of points is 3 or more we have at least 4 points forming a line
                 if(counter>=3){
-                    printPoints(i, i+counter, invoking_point);
+                    printPoints(i-counter, i, invoking_point);
                 }
                 slope1 = this.points[i].slopeTo(invoking_point);
-                counter=0;
+                counter=1;
             }
         }
     }
