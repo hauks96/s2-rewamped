@@ -90,9 +90,9 @@ Hours to complete assignment (optional): 24
   12800
 
 
-Brute:    ~
+Brute:    ~ N^4/8
 
-Sorting:  ~
+Sorting:  ~N^2*Log(N)
 
 
 
