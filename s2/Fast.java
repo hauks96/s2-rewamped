@@ -55,24 +55,19 @@ public class Fast {
     public void findEqualSlopes(Point invoking_point) {
         int counter=1; // Counts how many slopes in a row are the same
         double slope1, slope2;
-        slope1 = this.points[1].slopeTo(invoking_point);
-        // DUPLICATES: Invoking point should always we the smallest point. Otherwise it's a duplicate.
         // If returns less than 0, current point is smaller than invoking point
-        boolean is_dupe = this.points[1].compareTo(invoking_point)<0;
         for(int i=2; i<this.points.length; i++){
+            slope1 = this.points[i-1].slopeTo(invoking_point); // set new comparison slope to current slope
             slope2 = this.points[i].slopeTo(invoking_point);
             // If the slopes are equal they are form a line together
-            if(slope1==slope2){
-                // If current point is smaller than invoking point we have a duplicate
-                if(this.points[i].compareTo(invoking_point)<0){
-                    is_dupe = true;
-                }
+            if(slope1==slope2 && this.points[i].compareTo(invoking_point)>0 && this.points[i-1].compareTo(invoking_point)>0){
+                // If current point is greater than invoking point and the slopes are equal
                 counter++;
 
                 // EDGE CASE: If i=this.points.length-1 and the slopes are equal, the line never gets printed
                 // We therefore check specifically for that case
                 if(i==this.points.length-1){
-                    if(counter>=3 &&!is_dupe){
+                    if(counter>=3){
                         printPoints(i-counter+1, i+1, invoking_point);
                     }
                 }
@@ -80,11 +75,9 @@ public class Fast {
             // If the slopes are not equal, we no longer have a point in the collinear set
             else {
                 // If the count of points is 3 or more we have at least 4 points forming a line
-                if(counter>=3 &&!is_dupe){
+                if(counter>=3){
                     printPoints(i-counter, i, invoking_point);
                 }
-                slope1 = this.points[i].slopeTo(invoking_point); // set new comparison slope to current slope
-                is_dupe = this.points[i].compareTo(invoking_point)<0; // true if current point is smaller than inv.p
                 counter=1; // Reset count
             }
         }
