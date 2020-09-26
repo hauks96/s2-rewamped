@@ -118,7 +118,9 @@ Sorting:
  *  out different representations of the same line segment when there
  *  are 5 or more points on a line segment, indicate that here.
  **********************************************************************/
-
+The "this.points" list/array gets ruined after one run in Fast. You would
+have to save the points in a secondary array or re-read the points in, if
+you want to use them again.
 
 
 /**********************************************************************
@@ -127,14 +129,25 @@ Sorting:
  *  include any help from people (including course staff, lab TAs,
  *  classmates, and friends) and attribute them by name.
  **********************************************************************/
-
+We got some help from a class mate. His name is Bjarmi Anes Eiðsson.
+He helped us when we were stuck with 1 wrong test in Fast, we needed
+to get around the point (20000, 0) when we were checking from the point
+(15000, 5000) in one of the test cases. He suggested removing the point
+when we didn't need it any more. But we settled on making the values (0,0).
 
 
 /**********************************************************************
  *  Describe any serious problems you encountered.                    
  **********************************************************************/
-
-
+We only encountered one problem. We sorted the list of points by slope,
+and that usually worked. But when we started encountering bigger sets of
+points the there were points that were lexicographically smaller but
+still ended up in the sorted list. We didn't know how to sort the list
+better so we decided after comparing a point with all lexicographically
+larger points we "deleted" it by setting the point to (0,0). Because we
+figured because it starts comparing with the smallest point and then goes
+bigger. And since 0,0 is the smallest point possible we set the point to
+(0,0).
 
 
 /**********************************************************************
@@ -142,11 +155,13 @@ Sorting:
  *  the protocol as described on the assignment page. Give one
  *  sentence explaining what each of you contributed.
  **********************************************************************/
-
-
-
-
-
+We of course contributed differently but we can both agree that we
+probably could have done this assignment with out each other. Or at
+least within the same time frame. Because a lot of the time spent went
+into the implementation and figuring out all kinds of edge-cases and
+obstacles we did most of the work through discord and screen sharing by
+tweaking small pieces of code on one computer instead of implementing
+many functions that are doing simpler things on different systems.
 
 
 /**********************************************************************
