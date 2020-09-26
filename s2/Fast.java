@@ -52,40 +52,21 @@ public class Fast {
         }
     }
 
-    public void findEqualSlopes(Point invoking_point){
-        double end_slope, start_slope;
-        int start, end;
-        start=1; end=2;
-        boolean is_dupe;
-        is_dupe = invoking_point.compareTo(this.points[start])>0; // Duplicate if point < invoking point
-        // Setting initial slope
-        start_slope = this.points[start].slopeTo(invoking_point);// The current slope we are comparing to
-        while(end<this.points.length){
-            // If the end slope is the same as the start slope we have collinear points
-
-            end_slope = this.points[end].slopeTo(invoking_point); // The current slope we are iterating over
-
-            if (end_slope!=start_slope){
-                if(end-start>=3 &&!is_dupe){
-                    printPoints(start, end, invoking_point);
-                }
-                start = end;
-                start_slope = end_slope;
-                is_dupe = this.points[start].compareTo(invoking_point)<0; // Duplicate if point < invoking point
+    public void findEqualSlopes(Point invoking_point) {
+        int counter=0; // Counts how many slopes in a row are the same
+        double slope1, slope2;
+        slope1 = this.points[1].slopeTo(invoking_point);
+        for(int i=2; i<this.points.length; i++){
+            slope2 = this.points[i].slopeTo(invoking_point);
+            if(slope1==slope2){
+                counter++;
             }
-            if (this.points[end].compareTo(invoking_point)<0){
-                is_dupe = true; // Duplicate if point < invoking point
-            }
-            end++;
-
-
-            // If the last end++ also is in the collinear set
-            if(end==this.points.length-1){
-                if(this.points[end].slopeTo(invoking_point)==start_slope){
-                    if(end-start>=3 &&!is_dupe){
-                        printPoints(start, end, invoking_point);
-                    }
+            else {
+                if(counter>=3){
+                    printPoints(i, i+counter, invoking_point);
                 }
+                slope1 = this.points[i].slopeTo(invoking_point);
+                counter=0;
             }
         }
     }
@@ -130,3 +111,40 @@ public class Fast {
         }
     }
  */
+/*public void findEqualSlopes(Point invoking_point){
+        double end_slope, start_slope;
+        int start, end;
+        start=1; end=2;
+        boolean is_dupe;
+        is_dupe = this.points[start].compareTo(invoking_point)<0; // Duplicate if point < invoking point
+        // Setting initial slope
+        start_slope = this.points[start].slopeTo(invoking_point);// The current slope we are comparing to
+        while(end<this.points.length){
+            // If the end slope is the same as the start slope we have collinear points
+
+            end_slope = this.points[end].slopeTo(invoking_point); // The current slope we are iterating over
+
+            if (end_slope!=start_slope){
+                if(end-start>=3 &&!is_dupe){
+                    printPoints(start, end, invoking_point);
+                }
+                start = end;
+                start_slope = end_slope;
+                is_dupe = this.points[start].compareTo(invoking_point)<0; // Duplicate if point < invoking point
+            }
+            if (this.points[end].compareTo(invoking_point)<0){
+                is_dupe = true; // Duplicate if point < invoking point
+            }
+            end++;
+
+
+            // If the last end++ also is in the collinear set THIS IS PROBLEM
+            if(end==this.points.length-1){
+                if(this.points[end].slopeTo(invoking_point)==start_slope){
+                    if(end-start>=3 &&!is_dupe){
+                        printPoints(start, end, invoking_point);
+                    }
+                }
+            }
+        }
+    }*/
