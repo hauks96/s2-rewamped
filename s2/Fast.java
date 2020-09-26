@@ -57,6 +57,9 @@ public class Fast {
         double slope1, slope2;
         // If returns less than 0, current point is smaller than invoking point
         for(int i=2; i<this.points.length; i++){
+            if (this.points[i-1].compareTo(invoking_point)<0) {
+                this.points[i-1] = new Point(0,0);
+            }
             slope1 = this.points[i-1].slopeTo(invoking_point); // set new comparison slope to current slope
             slope2 = this.points[i].slopeTo(invoking_point);
             // If the slopes are equal they are form a line together
