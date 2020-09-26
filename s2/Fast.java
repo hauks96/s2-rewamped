@@ -6,7 +6,7 @@ import javax.management.InvalidAttributeValueException;
 import java.util.Arrays;
 
 public class Fast {
-    private final Point [] points;
+    private Point [] points;
     private final Point [] iter_points;
 
     public Fast(int n) throws InvalidAttributeValueException {
@@ -45,6 +45,7 @@ public class Fast {
             sortSlopePoints(iter_point); // Sort the second array according to slopes they make with iter_point
             findEqualSlopes(iter_point); // Find slopes that form lines of at least 4
         }
+        this.points = this.iter_points;
     }
 
     public void findEqualSlopes(Point invoking_point) {
