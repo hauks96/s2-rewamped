@@ -1,8 +1,6 @@
 package s2;
 
-import edu.princeton.cs.algs4.In;
-import edu.princeton.cs.algs4.Out;
-import edu.princeton.cs.algs4.QuickX;
+import edu.princeton.cs.algs4.*;
 
 import javax.management.InvalidAttributeValueException;
 
@@ -44,10 +42,13 @@ public class Brute {
         In in = new In();
         int n = in.readInt();
         Brute brute = new Brute(n);
+        var stopwatch = new Stopwatch();
         for (int i = 0; i < n; i++) {
             int x = in.readInt(), y = in.readInt();
             brute.points[i] = new Point(x, y);
         }
         brute.bruteForce();
+        var timespent = stopwatch.elapsedTime();
+        StdOut.println("Time: " + timespent);
     }
 }
