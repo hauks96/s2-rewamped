@@ -56,17 +56,23 @@ public class Fast {
         int counter=1; // Counts how many slopes in a row are the same
         double slope1, slope2;
         slope1 = this.points[1].slopeTo(invoking_point);
+        // DUPLICATES: Invoking point should always we the smallest point. Otherwise it's a duplicate.
+        // If returns less than 0, current point is smaller than invoking point
+        boolean is_dupe = this.points[1].compareTo(invoking_point)<0;
         for(int i=2; i<this.points.length; i++){
             slope2 = this.points[i].slopeTo(invoking_point);
             // If the slopes are equal they are form a line together
             if(slope1==slope2){
+                if(this.points[i].compareTo(invoking_point)<0){
+                    is_dupe = true;
+                }
                 counter++;
 
                 // EDGE CASE: If i=this.points.length-1 and the slopes are equal, the line never gets printed
                 // We therefore check specifically for that case
                 if(i==this.points.length-1){
                     if(counter>=3){
-                        printPoints(i-counter, i, invoking_point);
+                        printPoints(i-counter+1, i+1, invoking_point);
                     }
                 }
             }
