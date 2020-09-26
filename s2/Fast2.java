@@ -43,12 +43,10 @@ public class Fast2 {
 
 
     public void getCollinear(){
-        Point invoking_point;
-        sortIterPoints();
+        sortIterPoints(); // Sorting points that we will iterate over
         for (Point iter_point : this.iter_points) {
-            invoking_point = iter_point;
-            sortSlopePoints(invoking_point);
-            findEqualSlopes(invoking_point);
+            sortSlopePoints(iter_point); // Sort the second array according to slopes they make with iter_point
+            findEqualSlopes(iter_point); // Find slopes that form lines of at least 4
         }
     }
 
@@ -69,7 +67,7 @@ public class Fast2 {
                 }
                 counter++;
 
-                // EDGE CASE: If i=this.points.length-1 and the slopes are equal, the line never gets printed
+                // If i=N-1 and the slopes are equal, the line never gets printed
                 // We therefore check specifically for that case
                 if(i==this.points.length-1){
                     if(counter>=3 &&!is_dupe){

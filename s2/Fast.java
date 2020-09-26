@@ -25,9 +25,9 @@ public class Fast {
     }
 
     public void printPoints(int start, int end, Point invoking_point){
-        Arrays.sort(this.points, start, end);
+        Arrays.sort(this.points, start, end);  // Sort the points
         StringBuilder out_str = new StringBuilder();
-        out_str.append(invoking_point.toString());
+        out_str.append(invoking_point.toString()); // Always the fist point
         out_str.append(" -> ");
         for (int i=0; i<end-start; i++){
             out_str.append(this.points[start+i].toString());
@@ -43,31 +43,34 @@ public class Fast {
 
 
     public void getCollinear(){
-        Point invoking_point;
-        sortIterPoints();
+        sortIterPoints(); // Sorting points that we will iterate over
         for (Point iter_point : this.iter_points) {
-            invoking_point = iter_point;
-            sortSlopePoints(invoking_point);
-            findEqualSlopes(invoking_point);
+            sortSlopePoints(iter_point); // Sort the second array according to slopes they make with iter_point
+            findEqualSlopes(iter_point); // Find slopes that form lines of at least 4
         }
     }
 
     public void findEqualSlopes(Point invoking_point) {
         int counter=1; // Counts how many slopes in a row are the same
         double slope1, slope2;
-        // If returns less than 0, current point is smaller than invoking point
+        // Iterate over all points in the newly sorted list
+        // The list is sorted by slope size they make with invoking point
         for(int i=2; i<this.points.length; i++){
+
+            // If the previous point is smaller than the invoking point we no longer need it for comparisons.
+            // We set it to zero to make sure it doesn't interfere later
             if (this.points[i-1].compareTo(invoking_point)<0) {
                 this.points[i-1] = new Point(0,0);
             }
-            slope1 = this.points[i-1].slopeTo(invoking_point); // set new comparison slope to current slope
+
+            slope1 = this.points[i-1].slopeTo(invoking_point);
             slope2 = this.points[i].slopeTo(invoking_point);
-            // If the slopes are equal they are form a line together
+            // If the slopes are equal they form a line together
+            // If both current points are greater than the invoking point we have a valid line between the two points
             if(slope1==slope2 && this.points[i].compareTo(invoking_point)>0 && this.points[i-1].compareTo(invoking_point)>0){
-                // If current point is greater than invoking point and the slopes are equal
                 counter++;
 
-                // EDGE CASE: If i=this.points.length-1 and the slopes are equal, the line never gets printed
+                // If i=this.points.length-1 and the slopes are equal, the line never gets printed
                 // We therefore check specifically for that case
                 if(i==this.points.length-1){
                     if(counter>=3){
@@ -100,66 +103,16 @@ public class Fast {
 }
 
 /*
-    public void findEqualSlopes(Point invoking_point){
-        double end_slope, start_slope;
-        int start, end;
-        start=0; end=1;
-        boolean is_dupe;
-        is_dupe = this.points[start].compareTo(invoking_point)>0; // Duplicate if point < invoking point
-        // Setting initial slope
-        start_slope = this.points[start].slopeTo(invoking_point);// The current slope we are comparing to
-        while(end<this.points.length){
-            end_slope = this.points[end].slopeTo(invoking_point);
-            // If the end slope is the same as the start slope we have collinear points
-            if(end_slope==start_slope){
-                end++;
-            }
-            // If the end slope is NOT the same as the start slope we start with a new slope
-            else{
-                // First check if we got to at least 3 points with same slope to invoking point
-                if(end-start>=3){
-                    printPoints(start, end, invoking_point); // Print them
-                }
-                start=end; // Restart
-                end++; // add to end
-            }
-        }
-    }
- */
-/*public void findEqualSlopes(Point invoking_point){
-        double end_slope, start_slope;
-        int start, end;
-        start=1; end=2;
-        boolean is_dupe;
-        is_dupe = this.points[start].compareTo(invoking_point)<0; // Duplicate if point < invoking point
-        // Setting initial slope
-        start_slope = this.points[start].slopeTo(invoking_point);// The current slope we are comparing to
-        while(end<this.points.length){
-            // If the end slope is the same as the start slope we have collinear points
+if(slope1==slope2 && this.points[i].compareTo(invoking_point)>0 && this.points[i-1].compareTo(invoking_point)>0){
+                // If current point is greater than invoking point and the slopes are equal
+                counter++;
 
-            end_slope = this.points[end].slopeTo(invoking_point); // The current slope we are iterating over
-
-            if (end_slope!=start_slope){
-                if(end-start>=3 &&!is_dupe){
-                    printPoints(start, end, invoking_point);
-                }
-                start = end;
-                start_slope = end_slope;
-                is_dupe = this.points[start].compareTo(invoking_point)<0; // Duplicate if point < invoking point
-            }
-            if (this.points[end].compareTo(invoking_point)<0){
-                is_dupe = true; // Duplicate if point < invoking point
-            }
-            end++;
-
-
-            // If the last end++ also is in the collinear set THIS IS PROBLEM
-            if(end==this.points.length-1){
-                if(this.points[end].slopeTo(invoking_point)==start_slope){
-                    if(end-start>=3 &&!is_dupe){
-                        printPoints(start, end, invoking_point);
+                // EDGE CASE: If i=this.points.length-1 and the slopes are equal, the line never gets printed
+                // We therefore check specifically for that case
+                if(i==this.points.length-1){
+                    if(counter>=3){
+                        printPoints(i-counter+1, i+1, invoking_point);
                     }
                 }
             }
-        }
-    }*/
+ */
