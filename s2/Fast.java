@@ -1,9 +1,6 @@
 package s2;
 
-import edu.princeton.cs.algs4.In;
-import edu.princeton.cs.algs4.Out;
-import edu.princeton.cs.algs4.MergeX;
-import edu.princeton.cs.algs4.QuickX;
+import edu.princeton.cs.algs4.*;
 
 import javax.management.InvalidAttributeValueException;
 import java.util.Arrays;
@@ -93,26 +90,14 @@ public class Fast {
         In in = new In();
         int n = in.readInt();
         Fast fast = new Fast(n);
+        var stopwatch = new Stopwatch();
         for (int i = 0; i < n; i++) {
             int x = in.readInt(), y = in.readInt();
             fast.points[i] = new Point(x, y);
             fast.iter_points[i]= new Point(x, y);
         }
         fast.getCollinear();
+        var timespent = stopwatch.elapsedTime();
+        StdOut.println("Time: " + timespent);
     }
 }
-
-/*
-if(slope1==slope2 && this.points[i].compareTo(invoking_point)>0 && this.points[i-1].compareTo(invoking_point)>0){
-                // If current point is greater than invoking point and the slopes are equal
-                counter++;
-
-                // EDGE CASE: If i=this.points.length-1 and the slopes are equal, the line never gets printed
-                // We therefore check specifically for that case
-                if(i==this.points.length-1){
-                    if(counter>=3){
-                        printPoints(i-counter+1, i+1, invoking_point);
-                    }
-                }
-            }
- */

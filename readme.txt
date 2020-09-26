@@ -2,11 +2,15 @@
  *  Pattern Recognition readme.txt template
  **********************************************************************/
 
-Name: Ægir Máni Hauksson             
+Name: Ægir Máni Hauksson
 Email: aegir19@ru.is     
-Hópur:Solo
+Hópur: 30
 
-Username of the student submitting to Mooshak: aegir19@ru.is
+Partner name: Hákon Hákonarson
+Partner login: hakon19@ru.is
+Partner hópur: 30
+
+Username of the student submitting to Mooshak:  hakon19, aegir19
 
 Hours to complete assignment (optional): 24
 
@@ -79,20 +83,20 @@ Hours to complete assignment (optional): 24
     
       N       brute       sorting
  ---------------------------------
-    150
-    200
-    300
-    400
-    800
-   1600
-   3200
-   6400
-  12800
+    150         0.1         0.0
+    200         0.4         0.0
+    300         0.6         0.1
+    400         1.4         0.1
+    800         27.4        0.2
+   1600         942.3       0.5
+   3200                     1.6
+   6400                     6.2
+  12800                     25.2
 
 
 Brute:    ~ N^4/8
 
-Sorting:  ~N^2*Log(N)
+Sorting:  ~ N^2*Log(N)
 
 
 
